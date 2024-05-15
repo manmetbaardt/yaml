@@ -1,0 +1,20 @@
+tables:
+  accounts:
+    columns:
+      password: ( '' )
+      current_sign_in_ip: ipv4_public
+      last_sign_in_ip: ipv4_public
+      created_at: ( NOW() )
+      username: user_name
+      email:
+        type: fake_update
+        fake_type: company_email
+        where: username != 'admin'
+  transactions: truncate
+  other_important_table: truncate
+  secrets: delete
+scripts:
+  before:
+    - DELETE FROM config where name = 'secret';
+  after: 
+    - select * from config;
